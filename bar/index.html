@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  .bar--active {
+    fill: #5E9CD3;
+  }
+  
+  .bar--inactive {
+    fill: #EB7D3C;
+  }
+  
+  .axis text {
+    font: 10px sans-serif;
+  }
+  
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+  .stripe {
+    stroke: #777;
+    stroke-width: 1;
+  }
+</style>
+
+<body>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script>
+    var margin = {
+        top: 20,
+        right: 30,
+        bottom: 40,
+        left: 90
+      },
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+    var x = d3.scale.linear()
+      .range([0, width]);
+
+    var y = d3.scale.ordinal()
+      .rangeRoundBands([0, height], 0.1);
+
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left")
+      .tickSize(0)
+      .tickPadding(6);
+
+    var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    d3.json("data.json", function(error, json) {
+      var data = buildBarChartBucket(json);
+      var dataSegment = d3.sum(data, function(d) {
+        return d.value;
+      }) / data.length;
+
+      x.domain([0, d3.max(data, function(d) {
+        return d.value
+      })]).nice();
+      y.domain(data.map(function(d) {
+        return d.rangeName;
+      }));
+
+      svg.selectAll(".stripe")
+        .data(new Array(data.length - 1))
+        .enter().append("line")
+        .attr("x1", function(d, i) {
+          return x(dataSegment * (i + 1));
+        })
+        .attr("y1", function(d) {
+          return 0;
+        })
+        .attr("x2", function(d, i) {
+          return x(dataSegment * (i + 1));
+        })
+        .attr("y2", function(d) {
+          return height;
+        })
+        .attr("class", "stripe");
+
+      svg.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", function(d) {
+          return "bar bar--active"; // return "bar bar--" + (d.value < 45 ? "inactive" : "active");
+        })
+        .attr("x", function(d) {
+          return x(0);
+        })
+        .attr("y", function(d) {
+          return y(d.rangeName);
+        })
+        .attr("width", function(d) {
+          return x(d.value);
+        })
+        .attr("height", y.rangeBand());
+
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+      svg.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + x(0) + ",0)")
+        .call(yAxis);
+    });
+
+    function buildBarChartBucket(json) {
+      var bucket = [{
+        rangeName: "This month",
+        min: 0,
+        max: 0,
+        value: 0
+      }, {
+        rangeName: "Last quarter",
+        min: 1,
+        max: 3,
+        value: 0
+      }, {
+        rangeName: "4-6 months ago",
+        min: 4,
+        max: 6,
+        value: 0
+      }, {
+        rangeName: "7-9 months ago",
+        min: 7,
+        max: 9,
+        value: 0
+      }, {
+        rangeName: "10-12 months ago",
+        min: 10,
+        max: 12,
+        value: 0
+      }, {
+        rangeName: "1 year or longer",
+        min: 13,
+        max: Infinity,
+        value: 0
+      }, ];
+
+      var data = json.monthlyActivityDistribution;
+      for (var i in data) {
+        var d = data[i];
+        for (var k in bucket) {
+          if (d.months >= bucket[k].min && d.months <= bucket[k].max) {
+            bucket[k].value += d.people;
+          }
+        }
+      }
+
+      return bucket;
+    }
+  </script>
+</body>

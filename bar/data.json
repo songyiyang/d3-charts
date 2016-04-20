@@ -1,0 +1,155 @@
+{
+	"company": {
+		"name": "Dummy",
+		"domain": "dummy.com",
+		"website": "http://www.dummy.com/"
+	},
+	"monthlyActivityDistribution": [
+		{
+			"months": 0,
+			"people": 162
+		},
+		{
+			"months": 1,
+			"people": 33
+		},
+		{
+			"months": 2,
+			"people": 16
+		},
+		{
+			"months": 3,
+			"people": 16
+		},
+		{
+			"months": 4,
+			"people": 1
+		},
+		{
+			"months": 5,
+			"people": 2
+		},
+		{
+			"months": 6,
+			"people": 3
+		},
+		{
+			"months": 7,
+			"people": 5
+		},
+		{
+			"months": 8,
+			"people": 4
+		},
+		{
+			"months": 9,
+			"people": 3
+		},
+		{
+			"months": 10,
+			"people": 3
+		},
+		{
+			"months": 11,
+			"people": 1
+		},
+		{
+			"months": 13,
+			"people": 4
+		},
+		{
+			"months": 14,
+			"people": 1
+		},
+		{
+			"months": 15,
+			"people": 2
+		},
+		{
+			"months": 16,
+			"people": 1
+		},
+		{
+			"months": 19,
+			"people": 1
+		},
+		{
+			"months": 20,
+			"people": 1
+		},
+		{
+			"months": 21,
+			"people": 1
+		},
+		{
+			"months": 22,
+			"people": 1
+		},
+		{
+			"months": 23,
+			"people": 1
+		},
+		{
+			"months": 53,
+			"people": 1
+		},
+		{
+			"months": 130,
+			"people": 1
+		}
+	],
+	"userCount": {
+		"active": 211,
+		"inactive": 53
+	},
+	"cost": {
+		"past": 15500,
+		"nextMonth": 3375
+	},
+	"inactiveTitleDistribution": [
+		{
+			"title": "account manager",
+			"count": 37
+		},
+		{
+			"title": "senior account manager",
+			"count": 17
+		},
+		{
+			"title": "account mgr - inside sales",
+			"count": 16
+		},
+		{
+			"title": "sales engineer",
+			"count": 13
+		},
+		{
+			"title": "ist",
+			"count": 13
+		},
+		{
+			"title": "account mgr",
+			"count": 10
+		},
+		{
+			"title": "customer impl project mgr",
+			"count": 7
+		},
+		{
+			"title": "account executive",
+			"count": 7
+		},
+		{
+			"title": "customer experience mgr",
+			"count": 7
+		},
+		{
+			"title": "regional account manager",
+			"count": 6
+		},
+		{
+			"title": "marketing",
+			"count": 6
+		}
+	]
+}
